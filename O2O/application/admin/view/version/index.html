@@ -1,0 +1,56 @@
+{include file='public/header'}
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>分类管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><a href="javascript:;" onclick="o2o_add('添加分类','{:url('version/add')}','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a></span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+
+                <th width="40">ID</th>
+                <th width="100">问题</th>
+                <th width="30">重要程度</th>
+                <th width="100">发现时间</th>
+                <th width="100">更新时间</th>
+                <th width="70">状态</th>
+                <th width="150">详细描述(点击修改)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name='vers' id='vo'}
+            <tr class="text-c">
+
+                <td>{$vo.id}</td>
+
+                <td>{$vo.name}</td>
+
+                <td class="text-c listorder"><input size="3" attr-id="{$vo.id}"  name="listorder" value="{$vo.listorder}"/></td>
+
+                <td>{$vo.create_time}</td>
+                <td>{$vo.update_time}</td>
+                <td class="td-status"><a href="{:url('version/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击更改状态">{$vo.status|verStatus}</a></td>
+                <td class="td-manage"><a href="{:url('version/edit',['id'=>$vo.id])}" title="点击修改描述">{$vo.comment}</a></td>
+               </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+
+var SCOPE = {
+'listorder_url': "{:url('api/listorder/listorder')}",
+'controller':"{$controller}",
+};
+</script>
+<script type="text/javascript">
+
+
+
+</script>
+
+</body>
+
+{include file='public/footer'}

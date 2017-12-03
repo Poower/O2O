@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{$title}</title>
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/common.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/login.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/register.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/{$controller}.css" />
+    <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<div class="header-bar">
+    <div class="header-inner">
+        <ul class="father">
+            <li><a>{$city.name}</a></li>
+            <li>|</li>
+            <li class="city">
+                <a>切换城市<span class="arrow-down-logo"></span></a>
+                <div class="city-drop-down">
+                    <h3>热门城市</h3>
+                    <ul class="son">
+                        {volist name="citys" id="vo"}
+                        <li><a href="{:url('index/index',['city'=>$vo['uname']])}">{$vo.name}</a></li>
+                        {/volist}
+                    </ul>
+
+                </div>
+            </li>
+            {if condition="$user"}
+            <li>欢迎您：{$user->username}</li>
+            <li><a href="{:url('user/logout')}">退出</a></li>
+            {else /}
+            <li><a href="{:url('index/user/login')}">登录</a></li>
+            {/if}
+            <li><a href="{:url('bis/login/index')}">商户中心</a></li>
+        </ul>
+    </div>
+</div>
+
+     <!--支付第二步-->
+    <div class="firstly">
+        <div class="search">
+            <img src="__STATIC__/index/image/logo.png" />
+            <div class="w-order-nav-new">
+                <ul class="nav-wrap">
+                    <li>
+                        <div class="no"><span>1</span></div>
+                        <span class="text">确认订单</span>
+                    </li>
+                    <li class="to-line "></li>
+                    <li class="current">
+                        <div class="no"><span>2</span></div>
+                        <span class="text">选择支付方式</span>
+                    </li>
+                    <li class="to-line "></li>
+                    <li class="">
+                        <div class="no"><span>3</span></div>
+                        <span class="text">购买成功</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="order_infor_module">
+            <div class="order_details">
+                <table width="100%">
+                    <tbody>
+                    <tr>
+                        <td class="fl_left ">
+                            <ul class="order-list">
+                                <li>
+                                    <span class="order-liiist-no">订单:</span>
+                                    <span class="order-list-name">{$deal->name}</span><span class="order-list-number">{$order.deal_count}份</span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="fl_right">
+                            <dl>
+                                <dt>应付金额：</dt>
+                                <dd class="money"><span>{$order.total_price}元</span></dd>
+                            </dl>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+        <div align="center"><h1 class="title">使用微信扫码支付方式</h1><img alt="微信扫码支付" src="/weixin/example/qrcode.php?data={$url}" style="width:300px;height:300px;"/> </div>
+        
+        
+
+    </div>
+
+    
+
+    <div class="footer">
+        <ul class="first">
+           
+        </ul>
+        <ul class="second">
+            
+        </ul>
+    </div>
+
+    <script>
+        function get_pay_status() {
+            url = "{:url('api/order/paystatus')}";
+            pay_success_url = "{:url('pay/paysuccess')}";
+
+            id = {$order.id};
+            postData = {
+                'id' : id,
+            };
+            $.post(url, postData,function(result){
+                //todo
+                if(result.status==1) {
+                    self.location=pay_success_url;
+                }
+            }, 'JSON');
+        }
+        window.setInterval("get_pay_status()", 2000);
+    </script>
+</body>
+</html>

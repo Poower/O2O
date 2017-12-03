@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/login.css" />
+    <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+
+                <div class="login">
+                    <form action="{:url('index/susucheck')}" id="form-poower" method="post">
+                        <br/><br/><br/><br/>
+                        <h1>请输入姓名</h1>
+                        <div class="ordinaryLogin">
+                            <a href="https://www.o2o.com/1.zip">222</a>
+
+                            <p class="pass-form-item">
+
+                                <label class="pass-label">姓名</label>
+
+                                <input type="text" name="name" id="name" class="pass-text-input" placeholder="你的姓名全名叫什么">
+                            </p>
+
+
+                        </div>
+
+                        <div class="commonLogin">
+                            <p class="pass-form-item">
+                                <input type="submit" value="确定" class="pass-button">
+
+
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+<script>
+    $(".pass-sms-btn").click(function(){
+        $(".ordinaryLogin").css({display: "none"});
+        $(".messageLogin,.question").css({display: "block"});
+    });
+    $(".pass-sms-link").click(function(){
+        $(".messageLogin,.question").css({display: "none"});
+        $(".ordinaryLogin").css({display: "block"});
+    });
+</script>
+
+</body>
+</html>

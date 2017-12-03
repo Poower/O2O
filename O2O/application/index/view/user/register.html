@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>注册</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/register.css" />
+    <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+
+    <script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="head">
+        <ul>
+            <li><a href="/"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
+            <li class="divider"></li>
+            <li><a href="/"></a></li>
+        </ul>
+        <div class="login-link">
+            <span>我已注册，现在就</span>
+            <a href="{:url('user/login')}">登录</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <form action="{:url('user/register')}" id="form-poower" method="post" url="{:url('user/register')}">
+            <p class="pass-form-item">
+                <label class="pass-label">用户名</label>
+                <input type="text" name="username" id="username" class="pass-text-input" placeholder="请设置用户名">
+            </p>
+            <p class="pass-form-item">
+                <label class="pass-label">邮箱号</label>
+                <input type="text" name="email" id="name" class="pass-text-input" placeholder="可用于接受团购券账号和密码便于消费">
+            </p>
+
+
+            <p class="pass-form-item">
+                <label class="pass-label">密码</label>
+                <input type="password" name="password" id="password" class="pass-text-input" placeholder="请设置登录密码">
+            </p>
+            <p class="pass-form-item">
+                <label class="pass-label">确认密码</label>
+                <input type="password" name="repassword" id="repassword" class="pass-text-input" placeholder="请设置登录密码">
+            </p>
+            <p class="pass-form-item">
+                <label class="pass-label">验证码</label>
+                <input type="text" name="verifycode" id="verifycode" class="pass-text-input " placeholder="请输入验证码">
+                <img src="/captcha" alt="点击更新验证码" style="height: 70px;width: 300px;" onclick="reloadcode(this)"/>
+            </p>
+
+
+
+            <p class="pass-form-item">
+                <input type="submit" value="注册" class="pass-button">
+            </p>
+        </form>
+
+    </div>
+
+    <div class="foot">
+        <div>
+            <div>2017&nbsp;©Poower</div>
+        </div>
+    </div>
+</div>
+<script>
+    // 刷新验证码
+    function reloadcode(obj) {
+        obj.src="/captcha?id="+Math.random();
+    }
+</script>
+<script>
+
+
+    //表单验证
+    $("#form-poower").validate({
+
+        rules:{
+            username:{
+                required:true, //必填。如果验证方法不需要参数，则配置为true
+              //  rangelength:[3,12],
+                remote:{
+                    url:"{:url('user/namecheck')}",
+                    type:"post"
+                }
+            },
+            email:{
+                required:true,
+                email:true,
+                remote:{
+                    url:"{:url('user/emailcheck')}",
+                    type:"post"
+                }
+            },
+
+            password:{
+                required:true,
+                minlength: 5,
+
+            },
+
+            repassword:{
+                required:true,
+                minlength: 5,
+                equalTo:"#password"
+            },
+
+            verifycode:{
+                required:true,
+                remote:{
+                    url:"{:url('user/codecheck')}",
+                    type:"post"
+                }
+            },
+
+
+        },
+
+        messages:{
+            username:{
+                required:"请输入用户名",
+                remote:"该用户名已存在！"
+            },
+            email:{
+
+                remote:"email已经注册过"
+            },
+            verifycode:{
+
+                remote:"验证码不正确，点击图片可刷新验证码"
+            },
+            repassword:{
+                equalTo:"两次密码输入不一致"
+            }
+
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+
+    });
+
+
+
+
+
+</script>
+</body>
+</html>
