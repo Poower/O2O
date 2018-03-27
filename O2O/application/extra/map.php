@@ -12,6 +12,6 @@ return[
     'geocoder'=>'geocoder/v2/',
     'width'=>400,
     'height'=>400,
-    'zoom'=>15,
+    'zoom'=>14,
     'staticimage'=>'staticimage/v2'
 ];

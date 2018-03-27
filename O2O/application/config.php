@@ -56,11 +56,11 @@ return [
     // +----------------------------------------------------------------------
 
     // 默认模块名
-    'default_module'         => 'crm',
+    'default_module'         => 'blog',
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
-    'default_controller'     => 'customers',
+    'default_controller'     => 'index',
     // 默认操作名
     'default_action'         => 'index',
     // 默认验证器
@@ -141,7 +141,11 @@ return [
     // 视图输出字符串内容替换
     'view_replace_str'       => [
        '__STATIC__' => '/static',
-       '__CRM__' => '/crmpublic'
+       '__O2O__' => '/static/o2o',
+       '__UPLOADS__' => '/uploads',
+       '__layer__' => '/static/layer/layui-v2.2.5/layui',
+
+
        // '__STATIC__' => '/o2o/public/static'
     ],
     // 默认跳转页面对应的模板文件
@@ -160,7 +164,8 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '',
+    'exception_handle'       => 'app\lib\exception\ExceptionHandler',
+    //'exception_handle'       => '',
 
     // +----------------------------------------------------------------------
     // | 日志设置
@@ -168,7 +173,7 @@ return [
 
     'log'                    => [
         // 日志记录方式，内置 file socket 支持扩展
-        'type'  => 'File',
+        'type'  => 'test',
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
